@@ -11,6 +11,7 @@ type Props = {
 const TaskItem = ({ task, handleCheckTask, handleRemove }: Props) => {
   const checkboxRef = useRef<HTMLInputElement>(null);
 
+  
   return (
     <div className="gap-6 mt-3 min-h-[72px] px-4 py-4 flex items-center bg-custom-gray-500 rounded-md">
       <label htmlFor="" className="relative w-6 h-6">
