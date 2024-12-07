@@ -4,8 +4,10 @@ import empty from "../../assets/empty.svg";
 
 type Props = {
   tasks: TodoType[];
+  handleRemove: (idTask: number) => void;
+  handleCheck: (idTask: number) => void;
 };
-function TaskList({ tasks }: Props) {
+function TaskList({ tasks, handleRemove, handleCheck }: Props) {
   const countTaskDone = tasks.reduce((count, item) => {
     if (item.status === true) {
       return count + 1;
@@ -31,7 +33,13 @@ function TaskList({ tasks }: Props) {
       </div>
       <div className="mt-6 max-w-[736px]">
         {tasks.length > 0 ? (
-          tasks.map((task) => <TaskItem task={task} />)
+          tasks.map((task) => (
+            <TaskItem key={task.id}
+              task={task}
+              handleRemove={handleRemove}
+              handleCheck={handleCheck}
+            />
+          ))
         ) : (
           <div className="mt-6 flex flex-col justify-center items-center w-[737px] h-[244px] text-custom-gray-300 border-t-[1px] border-custom-gray-400 rounded-lg">
             <div className="flex">

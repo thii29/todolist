@@ -4,7 +4,7 @@ import Input from "./Input";
 
 type Props = {
   inputValue: string,
-  handleCreate: ()=>void,
+  handleCreate: React.MouseEventHandler<HTMLButtonElement>,
   onInputChange: React.ChangeEventHandler<HTMLInputElement> | undefined
 }
 function Header({inputValue, handleCreate, onInputChange}:Props) {
@@ -20,7 +20,7 @@ function Header({inputValue, handleCreate, onInputChange}:Props) {
         </div>
       </div>
       <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 rounded-sm">
-        <div className="flex gap-2">
+        <form className="flex gap-2" >
           <Input inputValue={inputValue} onInputChange={onInputChange}/>
           <button
           onClick={handleCreate} 
@@ -28,7 +28,7 @@ function Header({inputValue, handleCreate, onInputChange}:Props) {
             Create
             <img src={pluscircle} alt="plus" className="w-5 h-5" />
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
