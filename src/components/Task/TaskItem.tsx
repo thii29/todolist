@@ -1,6 +1,10 @@
 import { useRef } from "react";
+import { TodoType } from "../../types";
 
-const TaskItem = () => {
+type Props={
+  task: TodoType
+}
+const TaskItem = ({task}:Props) => {
   const checkboxRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -30,8 +34,7 @@ const TaskItem = () => {
         </svg>
       </label>
       <p className="text-custom-gray-100 flex-1 text-sm font-inter">
-        Integer urna interdum massa libero auctor neque turpis turpis semper.
-        Modi nemo vel maiores ab ipsa quasi debitis, expedita autem hic.
+        {task.title}
       </p>
       <button>
         <svg
