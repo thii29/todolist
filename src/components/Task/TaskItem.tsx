@@ -1,26 +1,32 @@
 import { useRef } from "react";
 import { TodoType } from "../../types";
 
-type Props={
-  task: TodoType
-}
-const TaskItem = ({task}:Props) => {
+type Props = {
+  task: TodoType;
+  handleCheck: (idTask: number) => void;
+  handleRemove: (idTask: number) => void
+};
+const TaskItem = ({ task, handleCheck, handleRemove }: Props) => {
   const checkboxRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div className="gap-6 mt-3 min-h-[72px] px-4 py-4 flex items-center bg-custom-gray-500 rounded-md">
+    <div className="gap-6 mt-3 w-[736px] min-h-[72px] px-4 py-4 flex items-center bg-custom-gray-500 rounded-md">
       <label htmlFor="" className="relative w-6 h-6">
         <input
           ref={checkboxRef}
           type="checkbox"
           name="complete"
           id="complete"
+          onClick={() => handleCheck(task.id)}
           className="w-6 h-6 appearance-none peer border border-blue rounded-full checked:bg-purple checked:border-purple"
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
-          onClick={() => checkboxRef?.current?.click()}
+          onClick={() => {
+            checkboxRef?.current?.click();
+            handleCheck(task.id);
+          }}
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="white"
@@ -33,10 +39,10 @@ const TaskItem = ({task}:Props) => {
           />
         </svg>
       </label>
-      <p className="text-custom-gray-100 flex-1 text-sm font-inter">
+      <p className={task.status===true?"text-custom-gray-300 flex-1 text-sm font-inter line-through":"text-custom-gray-100 flex-1 text-sm font-inter"}>
         {task.title}
       </p>
-      <button>
+      <button onClick={()=>handleRemove(task.id)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
