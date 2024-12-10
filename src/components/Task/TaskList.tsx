@@ -1,4 +1,4 @@
-import TaskItem from "./TaskItem";
+import TaskGroup from "./TaskGroup";
 
 function TaskList() {
   return (
@@ -17,9 +17,8 @@ function TaskList() {
           </span>
         </div>
       </div>
-      <div className="mt-6 max-w-[736px]">
-        <TaskItem/>
-
+      <div className="my-6 max-w-[736px]">
+        <TaskGroup/>
       </div>
     </div>
   );
