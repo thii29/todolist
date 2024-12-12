@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Header from '../../components/Header';
 import TaskList from '../../components/Tasks';
+import { TodoContext } from '../../contexts/TodoContext';
 import { ToDoType } from '../../Types/Todo';
 
 function TodoList() {
@@ -64,21 +65,28 @@ function TodoList() {
     console.log('newTodosArr', newTodosArr);
     setTodos(newTodosArr);
   };
+
   return (
-    <main className="relative">
-      <Header
-        inputAddValue={inputAddValue}
-        onInputAddChange={onInputAddChange}
-        handleCreateTodo={handleCreateTodo}
-      />
-      <section className="mt-16 absolute left-1/2  -translate-x-1/2">
-        <TaskList
-          toDos={toDos}
-          handleRemoveTodo={handleRemoveTodo}
-          handleTodoCheck={handleTodoCheck}
+    <TodoContext.Provider
+      // bước 3 cung cấp dữ liệu ở đây
+      // cung cấp xong rồi thì xuống component con lấy ra sài
+      value={{
+        todos: toDos,
+        handleRemoveTodo: handleRemoveTodo,
+        handleTodoCheck: handleTodoCheck,
+      }}
+    >
+      <main className="relative">
+        <Header
+          inputAddValue={inputAddValue}
+          onInputAddChange={onInputAddChange}
+          handleCreateTodo={handleCreateTodo}
         />
-      </section>
-    </main>
+        <section className="mt-16 absolute left-1/2  -translate-x-1/2">
+          <TaskList />
+        </section>
+      </main>
+    </TodoContext.Provider>
   );
 }
 

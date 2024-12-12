@@ -1,18 +1,14 @@
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
+
+import { TodoContext } from '../../contexts/TodoContext';
 import { ToDoType } from '../../Types/Todo';
 import CheckIcon from '../Icons/CheckIcon';
 import TrashIcon from '../Icons/TrashIcon';
 
-const TaskItem = ({
-  title,
-  checked,
-  id,
-  handleRemoveTodo,
-  handleTodoCheck,
-}: ToDoType & {
-  handleRemoveTodo: (id: number) => void;
-  handleTodoCheck: (id: number) => void;
-}) => {
+const TaskItem = ({ title, checked, id }: ToDoType) => {
+  const todoObjectProvider = useContext(TodoContext);
+
+  const { handleRemoveTodo, handleTodoCheck } = todoObjectProvider;
   const checkboxRef = useRef<HTMLInputElement>(null);
 
   return (

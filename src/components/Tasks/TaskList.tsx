@@ -1,17 +1,26 @@
-import { ToDoType } from '../../Types/Todo';
-import TaskItem from './TaskItem';
+import { useContext } from 'react';
 
-function TaskList({
-  toDos,
-  handleRemoveTodo,
-  handleTodoCheck,
-}: {
-  toDos: ToDoType[];
-  handleRemoveTodo: (id: number) => void;
-  handleTodoCheck: (id: number) => void;
-}) {
-  const todoListLength = toDos?.length || 0;
-  const totalTrue = toDos.reduce((result, item) => {
+import TaskItem from './TaskItem';
+import { TodoContext } from '../../contexts/TodoContext';
+
+function TaskList() {
+  // Ở component cha cần bao provider mới lấy đc dữ liệu cung cấp
+  /* TodoContext.Provider
+     sài được toàn bộ dữ liệu
+     trong cái value này =>>>>>> value= {{
+        todos: toDos, <<<<<<<
+        handleRemoveTodo: () => {},
+        handleTodoCheck: () => {},
+      }} */
+  // Sau đó bỏ props và lấy toàn bộ từ use context
+  const todoObjectProvider = useContext(TodoContext);
+
+  console.log('todoObjectProvider', todoObjectProvider);
+
+  const { todos } = todoObjectProvider;
+
+  const todoListLength = todos?.length || 0;
+  const totalTrue = todos.reduce((result, item) => {
     if (item.checked) {
       return result + 1;
     }
@@ -38,14 +47,7 @@ function TaskList({
         {todoListLength === 0 ? (
           <>Empty</>
         ) : (
-          toDos.map((todo) => (
-            <TaskItem
-              key={todo.id}
-              handleRemoveTodo={handleRemoveTodo}
-              handleTodoCheck={handleTodoCheck}
-              {...todo}
-            />
-          ))
+          todos.map((todo) => <TaskItem key={todo.id} {...todo} />)
         )}
       </div>
     </div>
