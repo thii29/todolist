@@ -2,6 +2,7 @@ import { useState } from "react";
 import Header from "../components/Header";
 import TaskList from "../components/Task";
 import { TodoType } from "../types";
+import { TodoContext } from "../context/TodoContext";
 
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
@@ -30,25 +31,32 @@ const Home = () => {
     });
     setTasks(updateTaskStatus);
   };
-  const handleRemove = (idTask:number)=>{
-    const newTaskList = tasks.filter(item=>{
-      return item.id!==idTask
-    })
-    setTasks(newTaskList)
-  }
+  const handleRemove = (idTask: number) => {
+    const newTaskList = tasks.filter((item) => {
+      return item.id !== idTask;
+    });
+    setTasks(newTaskList);
+  };
   return (
-    <main className="w-full relative bg-custom-gray-600">
-      <Header
-        inputValue={inputValue}
-        handleCreate={handleCreate}
-        onChangeValue={onChangeValue}
-      />
-      <div className="w-full min-h-screen">
-        <section className="w-[736px] mt-16 absolute left-1/2 -translate-x-1/2">
-          <TaskList tasks={tasks} handleCheck={handleCheck} handleRemove={handleRemove}/>
-        </section>
-      </div>
-    </main>
+    //dung TodoContext.Provider de cung cap du lieu
+    <TodoContext.Provider
+      value={{
+        tasks: tasks,
+        inputValue: inputValue,
+        onChangeValue: onChangeValue,
+        handleCheck: handleCheck,
+        handleRemove: handleRemove,
+      }}
+    >
+      <main className="w-full relative bg-custom-gray-600">
+        <Header handleCreate={handleCreate} />
+        <div className="w-full min-h-screen">
+          <section className="w-[736px] mt-16 absolute left-1/2 -translate-x-1/2">
+            <TaskList />
+          </section>
+        </div>
+      </main>
+    </TodoContext.Provider>
   );
 };
 

@@ -1,18 +1,25 @@
+import { createContext } from "react";
+import { TodoType } from "../types";
 
-import { createContext } from 'react'
-import { TodoType } from '../types'
-
+//tao type
 type TodoContextType = {
-    tasks: TodoType[];
-    handleCheck: (idTask: number)=>void,
-    handleRemove: (idTask: number)=>void
-}
- 
+  tasks: TodoType[];
+  inputValue: string;
+  onChangeValue:  React.ChangeEventHandler<HTMLInputElement> | undefined;
+  handleCheck: (idTask: number) => void;
+  handleRemove: (idTask: number) => void;
+};
+
+//tao value
 const defaultValue: TodoContextType = {
-    tasks: [],
-    handleCheck: ()=>{},
-    handleRemove: () => {}
-}
+  tasks: [],
+  inputValue: "",
+  onChangeValue: ()=>{},
+  handleCheck: () => {},
+  handleRemove: () => {},
+};
 
-export  const TodoContext = createContext(defaultValue)
+//khoi tao context
+//nhung cho can cung cap thi sd Provider
 
+export const TodoContext = createContext(defaultValue);

@@ -1,14 +1,12 @@
-import { TodoType } from "../../types";
 import TaskItem from "./TaskItem";
 import empty from "../../assets/empty.svg";
+import { useContext } from "react";
+import { TodoContext } from "../../context/TodoContext";
 
-type Props = {
-  tasks: TodoType[];
-  handleCheck: (idTask: number) => void;
-  handleRemove: (idTask: number) => void
-};
 
-function TaskList({ tasks, handleCheck, handleRemove }: Props) {
+function TaskList() {
+  const taskObjectProvider = useContext(TodoContext)
+  const { tasks, handleCheck, handleRemove} = taskObjectProvider
   const countFinishTask = tasks.reduce((initial, item) => {
     if (item.status === true) {
       return initial + 1;

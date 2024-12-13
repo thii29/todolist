@@ -1,14 +1,16 @@
 import rocket from "../assets/rocket.svg";
 import pluscircle from "../assets/plus-circle.svg";
 import Input from "./Input";
+import { useContext } from "react";
+import { TodoContext } from "../context/TodoContext";
 
 interface Props {
-  inputValue: string;
   handleCreate: React.MouseEventHandler<HTMLButtonElement> | undefined;
-  onChangeValue: React.ChangeEventHandler<HTMLInputElement> | undefined;
 }
 
-function Header({ inputValue, handleCreate, onChangeValue }: Props) {
+function Header({ handleCreate }: Props) {
+  const taskObjectProvider = useContext(TodoContext);
+  const { inputValue, onChangeValue } = taskObjectProvider;
   return (
     <div className="relative bg-custom-gray-700 w-full h-52">
       {/* Title header */}
