@@ -22,12 +22,24 @@ const Home = () => {
     setTasks([...tasks, newTask]);
     setInputValue("");
   };
+
+  const handleCheck = (idTask:number)=>{
+    const newTaskList = tasks.map(item => {
+      if(item.id === idTask)
+      {
+        return {...item, status: !item.status}
+      }
+      return item
+    })
+    setTasks(newTaskList)
+  }
   return (
     <TodoContext.Provider
       value={{
         inputValue,
         tasks,
         onChangeInput,
+        handleCheck,
       }}
     >
       <main className="relative">

@@ -4,13 +4,15 @@ import { TodoType } from "../types";
 type TodoContextType = {
     inputValue: string,
     tasks: TodoType[],
-    onChangeInput: (e: React.ChangeEvent<HTMLInputElement>)=>void 
+    onChangeInput: (e: React.ChangeEvent<HTMLInputElement>)=>void,
+    handleCheck: (idTask:number)=> void
 };
 
 const defaultValue: TodoContextType = {
     inputValue: "",
     tasks: [],
-    onChangeInput: ()=>{}
+    onChangeInput: ()=>{},
+    handleCheck: ()=>{},
 }
 
 export const TodoContext = createContext(defaultValue);

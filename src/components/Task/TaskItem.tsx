@@ -2,9 +2,10 @@ import { useRef } from "react";
 import { TodoType } from "../../types";
 
 type Props = {
-  task: TodoType
-}
-const TaskItem = ({task}:Props) => {
+  task: TodoType;
+  handleCheck: (idTask: number) => void;
+};
+const TaskItem = ({ task, handleCheck }: Props) => {
   const checkboxRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -15,12 +16,16 @@ const TaskItem = ({task}:Props) => {
           type="checkbox"
           name="complete"
           id="complete"
+          onClick={()=>handleCheck(task.id)}
           className="w-6 h-6 appearance-none peer border border-blue rounded-full checked:bg-purple checked:border-purple"
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
-          onClick={() => checkboxRef?.current?.click()}
+          onClick={() => {
+            checkboxRef?.current?.click();
+            handleCheck(task.id)
+          }}
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="white"
@@ -33,7 +38,7 @@ const TaskItem = ({task}:Props) => {
           />
         </svg>
       </label>
-      <p className="text-custom-gray-100 flex-1 text-sm font-inter">
+      <p className={task.status===true?"text-custom-gray-300 flex-1 text-sm font-inter line-through":"text-custom-gray-100 flex-1 text-sm font-inter"}>
         {task.title}
       </p>
       <button>
