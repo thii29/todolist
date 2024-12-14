@@ -1,6 +1,12 @@
+import { useContext } from "react";
 import TaskItem from "./TaskItem";
+import { TodoContext } from "../../context/TodoContext";
+
+import empty from "../../assets/empty.svg";
 
 function TaskList() {
+  const taskObjContext = useContext(TodoContext);
+  const { tasks } = taskObjContext;
   return (
     <div>
       <div className="w-[736px] flex justify-between">
@@ -18,8 +24,19 @@ function TaskList() {
         </div>
       </div>
       <div className="mt-6 max-w-[736px]">
-        <TaskItem/>
-
+        {tasks.length > 0 ? (
+          tasks.map((task) => <TaskItem key={task.id} task={task} />)
+        ) : (
+          <div className=" w-[736px] h-[244px] flex flex-col flex-1 justify-center items-center  text-custom-gray-300 border-t-[1px] rounded-lg border-custom-gray-400">
+            <img src={empty} alt="" />
+            <div className="flex flex-col mt-4 justify-center items-center">
+              <span className="font-bold">
+                You don't have tasks registered yet.
+              </span>
+              <span> Create tasks and organize your to-do items.</span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
