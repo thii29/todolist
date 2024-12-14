@@ -1,10 +1,11 @@
+import { useContext } from "react";
+import { TodoContext } from "../context/TodoContext";
 
-type Props = {
-  inputValue: string,
-  onChangeInput:React.ChangeEventHandler<HTMLInputElement> | undefined
-}
 
-const Input = ({inputValue, onChangeInput}:Props) => {
+
+const Input = () => {
+  const taskObjContext = useContext(TodoContext)
+  const { inputValue, onChangeInput } = taskObjContext
   return (
     <div>
       <input

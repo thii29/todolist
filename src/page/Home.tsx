@@ -8,12 +8,16 @@ const Home = () => {
   const [inputValue, setInputValue] = useState("");
   const [tasks, setTasks] = useState<TodoType[]>([]);
 
-  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>)=> {
-    setInputValue(e.target.value)
-  }
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
 
-  const handleAdd = (event:React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
+  const handleAdd = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    if (inputValue.trim() === "") {
+      setInputValue("");
+      return;
+    }
     const newTask = {
       id: new Date().getMilliseconds(),
       title: inputValue,
@@ -23,16 +27,22 @@ const Home = () => {
     setInputValue("");
   };
 
-  const handleCheck = (idTask:number)=>{
-    const newTaskList = tasks.map(item => {
-      if(item.id === idTask)
-      {
-        return {...item, status: !item.status}
+  const handleCheck = (idTask: number) => {
+    const newTaskList = tasks.map((item) => {
+      if (item.id === idTask) {
+        return { ...item, status: !item.status };
       }
-      return item
-    })
-    setTasks(newTaskList)
-  }
+      return item;
+    });
+    setTasks(newTaskList);
+  };
+
+  const handleRemove = (idTask: number) => {
+    const newTaskList = tasks.filter((item) => {
+      return item.id !== idTask;
+    });
+    setTasks(newTaskList);
+  };
   return (
     <TodoContext.Provider
       value={{
@@ -40,6 +50,7 @@ const Home = () => {
         tasks,
         onChangeInput,
         handleCheck,
+        handleRemove,
       }}
     >
       <main className="relative">

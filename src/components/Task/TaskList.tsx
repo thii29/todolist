@@ -6,7 +6,7 @@ import empty from "../../assets/empty.svg";
 
 function TaskList() {
   const taskObjContext = useContext(TodoContext);
-  const { tasks, handleCheck } = taskObjContext;
+  const { tasks } = taskObjContext;
 
   const totalFinish = tasks.reduce((initial, item)=>{
     if(item.status === true){
@@ -32,7 +32,7 @@ function TaskList() {
       </div>
       <div className="mt-6 max-w-[736px]">
         {tasks.length > 0 ? (
-          tasks.map((task) => <TaskItem key={task.id} task={task} handleCheck={handleCheck}/>)
+          tasks.map((task) => <TaskItem key={task.id} task={task}/>)
         ) : (
           <div className=" w-[736px] h-[244px] flex flex-col flex-1 justify-center items-center  text-custom-gray-300 border-t-[1px] rounded-lg border-custom-gray-400">
             <img src={empty} alt="" />

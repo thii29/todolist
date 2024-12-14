@@ -5,7 +5,8 @@ type TodoContextType = {
     inputValue: string,
     tasks: TodoType[],
     onChangeInput: (e: React.ChangeEvent<HTMLInputElement>)=>void,
-    handleCheck: (idTask:number)=> void
+    handleCheck: (idTask:number)=> void,
+    handleRemove: (idTask:number)=> void
 };
 
 const defaultValue: TodoContextType = {
@@ -13,6 +14,7 @@ const defaultValue: TodoContextType = {
     tasks: [],
     onChangeInput: ()=>{},
     handleCheck: ()=>{},
+    handleRemove: ()=>{},
 }
 
 export const TodoContext = createContext(defaultValue);

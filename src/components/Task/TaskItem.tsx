@@ -1,12 +1,13 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { TodoType } from "../../types";
+import { TodoContext } from "../../context/TodoContext";
 
 type Props = {
   task: TodoType;
-  handleCheck: (idTask: number) => void;
 };
-const TaskItem = ({ task, handleCheck }: Props) => {
+const TaskItem = ({ task }: Props) => {
   const checkboxRef = useRef<HTMLInputElement>(null);
+  const { handleCheck, handleRemove} = useContext(TodoContext)
 
   return (
     <div className="gap-6 mt-3 min-h-[72px] px-4 py-4 flex items-center bg-custom-gray-500 rounded-md">
@@ -41,7 +42,7 @@ const TaskItem = ({ task, handleCheck }: Props) => {
       <p className={task.status===true?"text-custom-gray-300 flex-1 text-sm font-inter line-through":"text-custom-gray-100 flex-1 text-sm font-inter"}>
         {task.title}
       </p>
-      <button>
+      <button onClick={()=>handleRemove(task.id)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
