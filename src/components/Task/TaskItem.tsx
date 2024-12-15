@@ -1,8 +1,17 @@
-import { useRef } from "react";
+import { useContext, useRef } from 'react';
+import { TaskItemType } from '../../Types/Task';
+import { TaskContext } from '../../contexts/TaskContext';
 
-const TaskItem = () => {
+const TaskItem = ({
+  task,
+  taskGroupId,
+}: {
+  task: TaskItemType;
+  taskGroupId: number;
+}) => {
+  const { checkTaskItem } = useContext(TaskContext);
   const checkboxRef = useRef<HTMLInputElement>(null);
-
+  const { title, status } = task;
   return (
     <div className="gap-6 mt-3 min-h-[72px] px-4 py-4 flex items-center bg-custom-gray-500 rounded-md">
       <label htmlFor="" className="relative w-6 h-6">
@@ -11,6 +20,8 @@ const TaskItem = () => {
           type="checkbox"
           name="complete"
           id="complete"
+          checked={status}
+          onChange={() => checkTaskItem(taskGroupId, task.id)}
           className="w-6 h-6 appearance-none peer border border-blue rounded-full checked:bg-purple checked:border-purple"
         />
         <svg
@@ -29,10 +40,7 @@ const TaskItem = () => {
           />
         </svg>
       </label>
-      <p className="text-custom-gray-100 flex-1 text-sm font-inter">
-        Integer urna interdum massa libero auctor neque turpis turpis semper.
-        Modi nemo vel maiores ab ipsa quasi debitis, expedita autem hic.
-      </p>
+      <p className="text-custom-gray-100 flex-1 text-sm font-inter">{title}</p>
       <button>
         <svg
           xmlns="http://www.w3.org/2000/svg"
