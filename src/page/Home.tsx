@@ -1,7 +1,6 @@
 import Header from "../components/Header";
 import NavHeader from "../components/NavHeader";
 import TaskList from "../components/Task";
-
 const Home = () => {
   return (
     <main className="relative">
@@ -9,7 +8,7 @@ const Home = () => {
       <div className="flex justify-center">
         <NavHeader />
       </div>
-      <div className="mt-16 absolute left-1/2 -translate-x-1/2">
+      <div className="mt-8 ">
         <TaskList />
       </div>
     </main>
