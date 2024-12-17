@@ -1,14 +1,17 @@
 type Props = {
-  placeHolder: string;
-  width: string
+  inputProps: React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  >;
+  width: string;
 };
-const Input = ({ placeHolder, width }: Props) => {
+const Input = ({ inputProps, width }: Props) => {
   return (
     <div>
       <input
         type="text"
-        placeholder={placeHolder}
-        className={`${width} h-[54px] px-4 py-4 font-inter bg-custom-gray-500 rounded-lg border border-1 border-custom-gray-700`}
+        className={`${width} h-[54px] px-4 py-4 font-inter text-custom-gray-200 bg-custom-gray-500 rounded-lg border border-1 border-custom-gray-700`}
+        {...inputProps}
       />
     </div>
   );

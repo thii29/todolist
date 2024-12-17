@@ -1,9 +1,13 @@
-import { useRef } from "react";
-import trash from "../../assets/trash.svg"
+import { useRef } from 'react';
+import trash from '../../assets/trash.svg';
+import { TodoItemType } from '../../types';
 
-const TaskItem = () => {
+type Props = {
+  task: TodoItemType;
+};
+const TaskItem = ({ task }: Props) => {
   const checkboxRef = useRef<HTMLInputElement>(null);
-
+  const { title, status } = task;
   return (
     <div className="gap-6 mt-3 min-h-[72px] px-4 flex items-center bg-custom-gray-500 rounded-md">
       <label htmlFor="" className="relative w-6 h-6">
@@ -12,6 +16,7 @@ const TaskItem = () => {
           type="checkbox"
           name="complete"
           id="complete"
+          checked={status}
           className="w-6 h-6 appearance-none peer border border-blue rounded-full checked:bg-purple checked:border-purple"
         />
         <svg
@@ -30,9 +35,14 @@ const TaskItem = () => {
           />
         </svg>
       </label>
-      <p className="text-custom-gray-100 flex-1 text-sm font-inter">
-        Integer urna interdum massa libero auctor neque turpis turpis semper.
-        Modi nemo vel maiores ab ipsa quasi debitis, expedita autem hic.
+      <p
+        className={
+          status === true
+            ? 'text-custom-gray-300 line-through flex-1 text-sm font-inter'
+            : 'text-custom-gray-100 flex-1 text-sm font-inter'
+        }
+      >
+        {title}
       </p>
       <button>
         <img src={trash} alt="" />
