@@ -1,7 +1,6 @@
 import { useRef } from 'react';
-import trash from '../../assets/trash.svg';
 import { TodoItemType } from '../../types';
-
+import { Trash } from '../icons/Trash';
 type Props = {
   task: TodoItemType;
 };
@@ -44,8 +43,8 @@ const TaskItem = ({ task }: Props) => {
       >
         {title}
       </p>
-      <button>
-        <img src={trash} alt="" />
+      <button className='hover:stroke-custom-gray-400'>
+        <Trash/>
       </button>
     </div>
   );

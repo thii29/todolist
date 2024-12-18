@@ -6,7 +6,6 @@ import TaskGroup from './TaskGroup';
 
 function TaskList() {
   const { taskGroupList } = useContext(TodoContext);
-
   const totalGroupTask = taskGroupList.length;
   return (
     <>

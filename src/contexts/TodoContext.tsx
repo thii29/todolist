@@ -6,6 +6,11 @@ type TodoContextType = {
   inputCreateGroup: string;
   setInputCreateGroup: React.Dispatch<React.SetStateAction<string>>;
   handleCreateGroup: () => void;
+  handleAddItem: (
+    groupID: number,
+    inputTaskItem: string,
+    onSuccess?: () => void
+  ) => void;
 };
 
 const todoContextDefaultValue: TodoContextType = {
@@ -13,6 +18,7 @@ const todoContextDefaultValue: TodoContextType = {
   inputCreateGroup: '',
   setInputCreateGroup: () => {},
   handleCreateGroup: () => {},
+  handleAddItem: () => {},
 };
 
 export const TodoContext = createContext(todoContextDefaultValue);
