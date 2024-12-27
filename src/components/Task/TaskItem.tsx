@@ -1,12 +1,15 @@
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
+import { TodoContext } from '../../contexts/TodoContext';
 import { TodoItemType } from '../../types';
 import { Trash } from '../icons/Trash';
 type Props = {
   task: TodoItemType;
+  taskGroupID: number;
 };
-const TaskItem = ({ task }: Props) => {
+const TaskItem = ({ task, taskGroupID }: Props) => {
   const checkboxRef = useRef<HTMLInputElement>(null);
   const { title, status } = task;
+  const { checkTaskItem } = useContext(TodoContext);
   return (
     <div className="gap-6 mt-3 min-h-[72px] px-4 flex items-center bg-custom-gray-500 rounded-md">
       <label htmlFor="" className="relative w-6 h-6">
@@ -16,12 +19,16 @@ const TaskItem = ({ task }: Props) => {
           name="complete"
           id="complete"
           checked={status}
+          onClick={() => checkTaskItem(taskGroupID, task.id)}
           className="w-6 h-6 appearance-none peer border border-blue rounded-full checked:bg-purple checked:border-purple"
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
-          onClick={() => checkboxRef?.current?.click()}
+          onClick={() => {
+            checkboxRef?.current?.click();
+            checkTaskItem(taskGroupID, task.id);
+          }}
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="white"
@@ -43,8 +50,8 @@ const TaskItem = ({ task }: Props) => {
       >
         {title}
       </p>
-      <button className='hover:stroke-custom-gray-400'>
-        <Trash/>
+      <button className="hover:stroke-custom-gray-400">
+        <Trash />
       </button>
     </div>
   );

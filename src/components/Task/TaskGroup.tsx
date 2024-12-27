@@ -1,3 +1,4 @@
+
 import { TodoGroupType } from '../../types';
 import { Trash } from '../icons/Trash';
 import { AddTodoForm } from './AddTodoForm';
@@ -9,22 +10,30 @@ type Props = {
 };
 const TaskGroup = ({ taskGroup }: Props) => {
   const { name, tasks } = taskGroup;
+  const taskGroupID = taskGroup.idGroup;
+  const totalItem = tasks?.length || 0;
+  const totalCheckItem = tasks.filter((task) => task.status === true)?.length;
+
+
   return (
     <div className="bg-custom-gray-700 w-[736px] rounded-md mt-3 p-1">
       <div className="p-3 ">
-        <CountLabel label={name.toUpperCase()} value={0} />
+        <CountLabel
+          label={name.toUpperCase()}
+          value={`${totalCheckItem} of ${totalItem}`}
+        />
       </div>
 
       <div className="w-[652px] flex flex-col justify-center mx-10">
         {tasks.map((task, index) => (
-          <TaskItem key={index} task={task} />
+          <TaskItem key={index} task={task} taskGroupID={taskGroupID} />
         ))}
       </div>
       <div className="w-[652px] flex justify-center mx-10 my-4 gap-2 pb-3">
-        <AddTodoForm taskGroupID={taskGroup.idGroup} />
+        <AddTodoForm taskGroupID={taskGroupID} />
       </div>
       <div className="w-full flex justify-center pb-3">
-        <button className='border border-custom-gray-200 rounded-full p-2 hover:bg-red-500 hover:border-red-500'>
+        <button className="border border-custom-gray-200 rounded-full p-2 hover:bg-red-500 hover:border-red-500">
           <Trash />
         </button>
       </div>

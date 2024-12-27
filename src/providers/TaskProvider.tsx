@@ -41,6 +41,16 @@ export default function TaskProvider({ children }: PropsWithChildren) {
     onSuccess?.();
   };
 
+  const handleDeleteItem = (idGroup: number, idTask: number) => {
+    const newGroupList = taskGroupList.map((group) => {
+      if (group.idGroup === idGroup) {
+        const newTaskList = group.tasks.filter((task) => task.id !== idTask);
+        return { ...group, tasks: newTaskList };
+      }
+      return group;
+    });
+    setTaskGroupList(newGroupList);
+  };
   const checkTaskItem = (groupID: number, taskId: number) => {
     const newTaskGroupList = taskGroupList.map((taskGroup) => {
       if (groupID === taskGroup.idGroup) {
@@ -56,15 +66,18 @@ export default function TaskProvider({ children }: PropsWithChildren) {
     });
     setTaskGroupList(newTaskGroupList);
   };
+
   return (
     <TodoContext.Provider
       value={{
         taskGroupList,
+        setTaskGroupList,
         inputCreateGroup,
         setInputCreateGroup,
         handleCreateGroup,
         handleAddItem,
         checkTaskItem,
+        handleDeleteItem
       }}
     >
       {children}
