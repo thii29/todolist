@@ -11,6 +11,7 @@ type TodoContextType = {
     inputTaskItem: string,
     onSuccess?: () => void
   ) => void;
+  checkTaskItem: (groupID: number, taskId: number) => void;
 };
 
 const todoContextDefaultValue: TodoContextType = {
@@ -19,6 +20,7 @@ const todoContextDefaultValue: TodoContextType = {
   setInputCreateGroup: () => {},
   handleCreateGroup: () => {},
   handleAddItem: () => {},
+  checkTaskItem: () => {},
 };
 
 export const TodoContext = createContext(todoContextDefaultValue);
