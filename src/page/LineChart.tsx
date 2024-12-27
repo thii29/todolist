@@ -72,14 +72,14 @@ function MyLineChart() {
         style: {
           colors: "#ccc",     // Màu chữ trục Y
         },
-        formatter: (val) => `$${val.toFixed(2)}`, // Format giá
+        formatter: (val:number) => `$${val.toFixed(2)}`, // Format giá
       },
     },
     tooltip: {
       theme: "dark",
       x: { show: false },
       y: {
-        formatter: (val) => `$${val.toFixed(2)}`,
+        formatter: (val: number) => `$${val.toFixed(2)}`,
       },
     },
     legend: {
@@ -111,7 +111,7 @@ function MyLineChart() {
   return (
     <div style={{ width: "100%", height: "400px" }}>
       <ReactApexChart
-        options={chartOptions}
+        options={chartOptions as ApexCharts.ApexOptions}
         series={chartSeries}
         type="line"
         height="100%"
