@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { TodoGroupType } from '../types';
+import { SortTypeEnum, TodoGroupType } from '../types';
 
 type TodoContextType = {
   taskGroupList: TodoGroupType[];
@@ -13,18 +13,28 @@ type TodoContextType = {
     onSuccess?: () => void
   ) => void;
   checkTaskItem: (groupID: number, taskId: number) => void;
-  handleDeleteItem: (idGroup: number, idTask: number)=>void
+  handleDeleteItem: (idGroup: number, idTask: number) => void;
+  handleDeleteGroup: (idGroup: number) => void;
+  taskGroupCompleteCount: number;
+  groupListSearch: TodoGroupType[];
+  handleSearch: (str: string) => void;
+  handleSort: (type: SortTypeEnum)=>void;
 };
 
 const todoContextDefaultValue: TodoContextType = {
   taskGroupList: [],
-  setTaskGroupList: ()=>{},
+  setTaskGroupList: () => {},
   inputCreateGroup: '',
   setInputCreateGroup: () => {},
   handleCreateGroup: () => {},
   handleAddItem: () => {},
   checkTaskItem: () => {},
-  handleDeleteItem: ()=>void
+  handleDeleteItem: () => {},
+  handleDeleteGroup: () => {},
+  taskGroupCompleteCount: 0,
+  groupListSearch: [],
+  handleSearch: () => {},
+  handleSort: ()=>{}
 };
 
 export const TodoContext = createContext(todoContextDefaultValue);

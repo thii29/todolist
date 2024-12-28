@@ -1,11 +1,11 @@
 import { PropsWithChildren, useState } from 'react';
 import { TodoContext } from '../contexts/TodoContext';
-import { TodoGroupType, TodoItemType } from '../types';
+import { SortTypeEnum, TodoGroupType, TodoItemType } from '../types';
 
 export default function TaskProvider({ children }: PropsWithChildren) {
   const [inputCreateGroup, setInputCreateGroup] = useState('');
   const [taskGroupList, setTaskGroupList] = useState<TodoGroupType[]>([]);
-
+  const [groupListSearch, setGroupListSearch] = useState<TodoGroupType[]>([]);
   const handleCreateGroup = () => {
     const newTaskGroup: TodoGroupType = {
       idGroup: new Date().getMilliseconds(),
@@ -67,6 +67,50 @@ export default function TaskProvider({ children }: PropsWithChildren) {
     setTaskGroupList(newTaskGroupList);
   };
 
+  const handleDeleteGroup = (idGroup: number) => {
+    const newGroupList = taskGroupList.filter((item) => {
+      return item.idGroup !== idGroup;
+    });
+    setTaskGroupList(newGroupList);
+  };
+
+  const taskGroupCompleteCount = taskGroupList.reduce((result, item) => {
+    const taskListItem = item.tasks;
+    const isCount = taskListItem.every((element) => element.status === true);
+    if (isCount && taskListItem.length > 0) {
+      result++;
+    }
+    return result;
+  }, 0);
+
+  const handleSearch = (str: string) => {
+    const searchGroupList = taskGroupList.filter((item) => {
+      return item.name.toLowerCase().includes(str.toLowerCase());
+    });
+    setGroupListSearch(searchGroupList);
+  };
+
+  const handleSort = (type: SortTypeEnum) => {
+    if (type === SortTypeEnum.ALL) {
+      setGroupListSearch([]);
+    }
+    if (type === SortTypeEnum.COMPLETED) {
+      let taskGroupFilter = [];
+
+      taskGroupFilter = taskGroupList.filter((group) => {
+        return group.tasks.length > 0;
+      });
+
+      taskGroupFilter = taskGroupFilter.map((taskGroup) => {
+        const newItemList = taskGroup.tasks.filter((item) => {
+          return item.status === true;
+        });
+        return { ...taskGroup, tasks: newItemList };
+      });
+
+      setGroupListSearch(taskGroupFilter);
+    }
+  };
   return (
     <TodoContext.Provider
       value={{
@@ -77,7 +121,12 @@ export default function TaskProvider({ children }: PropsWithChildren) {
         handleCreateGroup,
         handleAddItem,
         checkTaskItem,
-        handleDeleteItem
+        handleDeleteItem,
+        handleDeleteGroup,
+        taskGroupCompleteCount,
+        groupListSearch,
+        handleSearch,
+        handleSort
       }}
     >
       {children}

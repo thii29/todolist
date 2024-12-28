@@ -1,4 +1,5 @@
-
+import { useContext } from 'react';
+import { TodoContext } from '../../contexts/TodoContext';
 import { TodoGroupType } from '../../types';
 import { Trash } from '../icons/Trash';
 import { AddTodoForm } from './AddTodoForm';
@@ -13,8 +14,7 @@ const TaskGroup = ({ taskGroup }: Props) => {
   const taskGroupID = taskGroup.idGroup;
   const totalItem = tasks?.length || 0;
   const totalCheckItem = tasks.filter((task) => task.status === true)?.length;
-
-
+  const { handleDeleteGroup } = useContext(TodoContext);
   return (
     <div className="bg-custom-gray-700 w-[736px] rounded-md mt-3 p-1">
       <div className="p-3 ">
@@ -33,7 +33,9 @@ const TaskGroup = ({ taskGroup }: Props) => {
         <AddTodoForm taskGroupID={taskGroupID} />
       </div>
       <div className="w-full flex justify-center pb-3">
-        <button className="border border-custom-gray-200 rounded-full p-2 hover:bg-red-500 hover:border-red-500">
+        <button
+        onClick={()=>handleDeleteGroup(taskGroupID)}
+        className="border border-custom-gray-200 rounded-full p-2 hover:bg-red-500 hover:border-red-500">
           <Trash />
         </button>
       </div>

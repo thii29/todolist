@@ -9,6 +9,6 @@ export type TodoGroupType = {
     tasks: TodoItemType[]
 }
 export enum SortTypeEnum {
-    ALl ='all',
+    ALL ='all',
     COMPLETED = 'completed'
 }

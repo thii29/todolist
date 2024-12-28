@@ -8,8 +8,8 @@ type Props = {
 };
 const TaskItem = ({ task, taskGroupID }: Props) => {
   const checkboxRef = useRef<HTMLInputElement>(null);
-  const { title, status } = task;
-  const { checkTaskItem } = useContext(TodoContext);
+  const { id, title, status } = task;
+  const { checkTaskItem, handleDeleteItem } = useContext(TodoContext);
   return (
     <div className="gap-6 mt-3 min-h-[72px] px-4 flex items-center bg-custom-gray-500 rounded-md">
       <label htmlFor="" className="relative w-6 h-6">
@@ -50,7 +50,9 @@ const TaskItem = ({ task, taskGroupID }: Props) => {
       >
         {title}
       </p>
-      <button className="hover:stroke-custom-gray-400">
+      <button
+      onClick={()=>handleDeleteItem(taskGroupID, id)}
+      className="hover:stroke-custom-gray-400">
         <Trash />
       </button>
     </div>
